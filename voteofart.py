@@ -1,5 +1,5 @@
-import dbcontrol as db
-import calculations as calc
+import dbcontrol
+import calculations
 
-
+db = dbcontrol.DBManager()
 
