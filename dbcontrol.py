@@ -1,4 +1,5 @@
 import sqlite3
+import os
 
 class DBManager():
 
@@ -9,6 +10,8 @@ class DBManager():
     def create_db(self):
         with self.conn:
             """
+            /////////////CODE FOR CREATE DB TABLE/////////////
+                
                 PRAGMA foreign_keys = 0;
                 
                 CREATE TABLE sqlitestudio_temp_table AS SELECT *
@@ -44,22 +47,22 @@ class DBManager():
             """
             pass
 
-    def init_db(self, name, src):
+    def init_db(self):
         with self.conn:
-            self.cursor.execute("")
-            pass
+            for root, dirs, files in os.walk("D:\\gallery\\images"):
+                for id, file in enumerate(files,start=1):
+                    self.cursor.execute("INSERT INTO paintings values (?, ?, ?, ?)", (id, file.removesuffix('.jpg'), os.path.join(root, file), 1500))
 
-    def get_elem(self):
+    def get_elem(self, id):
         with self.conn:
-            self.cursor.execute("")
-            pass
+            result = self.cursor.execute("SELECT * FROM paintings WHERE id = ?", (id,)).fetchone()
+            return result
 
-    def edit_rating(self):
+    def edit_rating(self, id, rating):
         with self.conn:
-            self.cursor.execute("")
-            pass
+            self.cursor.execute("UPDATE paintings SET rating = ? WHERE id = ?", (rating, id))
 
-    def show_rating(self):
+    def top_arts(self):
         with self.conn:
-            self.cursor.execute("")
-            pass
+            result = self.cursor.execute("SELECT * FROM paintings order by rating DESC limit 50").fetchall()
+            return result
