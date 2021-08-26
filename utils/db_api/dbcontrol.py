@@ -1,6 +1,8 @@
 import sqlite3
 import os
 
+
+
 class DBManager():
 
     def __init__(self):
@@ -15,7 +17,7 @@ class DBManager():
                 PRAGMA foreign_keys = 0;
                 
                 CREATE TABLE sqlitestudio_temp_table AS SELECT *
-                                                          FROM paintings;
+                                                          FROM paints;
                 
                 DROP TABLE paintings;
                 
@@ -30,7 +32,7 @@ class DBManager():
                     rating INTEGER DEFAULT (1500) 
                 );
                 
-                INSERT INTO paintings (
+                INSERT INTO paints (
                                           id,
                                           name,
                                           src
@@ -55,14 +57,16 @@ class DBManager():
 
     def get_elem(self, id):
         with self.conn:
-            result = self.cursor.execute("SELECT * FROM paintings WHERE id = ?", (id,)).fetchone()
+            result = self.cursor.execute("SELECT * FROM paints WHERE id = ?", (id,)).fetchone()
             return result
 
     def edit_rating(self, id, rating):
         with self.conn:
-            self.cursor.execute("UPDATE paintings SET rating = ? WHERE id = ?", (rating, id))
+            self.cursor.execute("UPDATE paints SET rating = ? WHERE id = ?", (rating, id))
 
     def top_arts(self):
         with self.conn:
-            result = self.cursor.execute("SELECT * FROM paintings order by rating DESC limit 50").fetchall()
+            result = self.cursor.execute("SELECT * FROM paints order by rating DESC limit 50").fetchall()
             return result
+
+mydb = DBManager()

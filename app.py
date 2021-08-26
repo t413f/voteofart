@@ -1,11 +1,12 @@
 from aiogram import executor
 from loader import dp, bot
-from handlers import handlers
+from handlers import handlers, menu
 import asyncio
 from data import config
 import aioschedule
 
-async def on_startup(dispatcher):
+
+async def on_startup():
     await handlers.info_bot_on()
 
     # await set_default_commands(dispatcher)
