@@ -4,7 +4,7 @@ import os
 class DBManager():
 
     def __init__(self):
-        self.conn = sqlite3.connect("mydb.db")
+        self.conn = sqlite3.connect("D:\\voteofart\\mydb.db")
         self.cursor = self.conn.cursor()
 
     def create_db(self):
@@ -51,7 +51,7 @@ class DBManager():
         with self.conn:
             for root, dirs, files in os.walk("D:\\gallery\\images"):
                 for id, file in enumerate(files,start=1):
-                    self.cursor.execute("INSERT INTO paintings values (?, ?, ?, ?)", (id, file.removesuffix('.jpg'), os.path.join(root, file), 1500))
+                    self.cursor.execute("INSERT INTO paints values (?, ?, ?, ?)", (id, file.removesuffix('.jpg'), os.path.join(root, file), 1500))
 
     def get_elem(self, id):
         with self.conn:

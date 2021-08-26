@@ -1,6 +1,6 @@
-import dbcontrol
-import calculations
 from enum import Enum
+from utils.db_api import dbcontrol
+
 
 class Table(Enum):
     ID = 0
@@ -9,7 +9,9 @@ class Table(Enum):
     RATING = 3
 
 def main():
-    db = dbcontrol.DBManager()
+    pass
+    # initialize object Database
+    # db = dbcontrol.DBManager()
 
     # only for initialize db --- ready
     # db.init_db()
